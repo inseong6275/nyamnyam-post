@@ -2,21 +2,28 @@ package kr.nyamnyam_kr.controller;
 
 import kr.nyamnyam_kr.model.domain.ReplyModel;
 import kr.nyamnyam_kr.model.entity.ReplyEntity;
+import kr.nyamnyam_kr.model.repository.ReplyRepository;
 import kr.nyamnyam_kr.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/reply/")
 public class ReplyController  {
     private final ReplyService replyService;
+    private final ReplyRepository replyRepository;
+
+    @PostMapping("insert")
+    public Object insert(@RequestBody ReplyEntity entity) {
+        return replyRepository.save(entity.builder()
+                        .content(entity.getContent())
+                .build());
+    }
 
     @PostMapping("save")
     public ReplyEntity save(ReplyModel replyModel) {

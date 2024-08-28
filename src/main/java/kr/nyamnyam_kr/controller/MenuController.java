@@ -2,22 +2,31 @@ package kr.nyamnyam_kr.controller;
 
 import kr.nyamnyam_kr.model.domain.MenuModel;
 import kr.nyamnyam_kr.model.entity.MenuEntity;
+import kr.nyamnyam_kr.model.repository.MenuRepository;
 import kr.nyamnyam_kr.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/menu/")
 public class MenuController {
 
     private final MenuService menuService;
+    private final MenuRepository menuRepository;
+
+    @PostMapping("insert")
+    public Object insert(@RequestBody MenuEntity entity) {
+
+        return menuRepository.save(entity.builder()
+                        .price(entity.getPrice())
+                        .menuName(entity.getMenuName())
+                .build());
+    }
 
     @PostMapping("save")
     public MenuEntity save(MenuModel menuModel) {
