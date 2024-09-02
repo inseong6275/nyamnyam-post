@@ -8,6 +8,13 @@ plugins {
 group = 'kr'
 version = '0.0.1-SNAPSHOT'
 
+bootJar {
+	archiveFileName = "${rootProject.name}.jar"
+}
+jar {
+	enabled = false
+}
+
 
 java {
 	toolchain {
