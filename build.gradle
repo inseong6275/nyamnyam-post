@@ -9,11 +9,10 @@ group = 'kr'
 version = '0.0.1-SNAPSHOT'
 
 bootJar {
+	jar.enabled = false
 	archiveFileName = "${rootProject.name}.jar"
 }
-jar {
-	enabled = false
-}
+
 
 
 java {
